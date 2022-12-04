@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="android.widget.FrameLayout">
+    android:foreground="?selectableItemBackground"
+    app:cardCornerRadius="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardContainer"
+    <TextView
+        android:id="@+id/questionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?selectableItemBackground"
-        app:cardCornerRadius="8dp">
+        android:layout_margin="16dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="Question"/>
 
-        <TextView
-            android:id="@+id/questionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            tools:text="Question"/>
-
-    </androidx.cardview.widget.CardView>
-
-</merge>
+</androidx.cardview.widget.CardView>
