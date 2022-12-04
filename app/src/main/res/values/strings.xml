@@ -5,4 +5,6 @@
     <string name="login_string">Login</string>
     <string name="register_string">Register</string>
     <string name="repeat_password_string">Repeat password</string>
+    <string name="administrator_dashboard_string">Administrator Dashboard</string>
+    <string name="add_new_vote_string">Add new Vote</string>
 </resources>
