@@ -7,4 +7,13 @@
     <string name="repeat_password_string">Repeat password</string>
     <string name="administrator_dashboard_string">Administrator Dashboard</string>
     <string name="add_new_vote_string">Add new Vote</string>
+    <string name="add_vote_string">Add Vote</string>
+    <string name="start_vote_string">Start vote</string>
+    <string name="question_string">Question</string>
+    <string name="first_choice_string">First choice</string>
+    <string name="second_choice_string">Second choice</string>
+    <string name="third_choice_string">Third choice</string>
+    <string name="fourth_choice_string">Fourth choice</string>
+    <string name="fifth_choice_string">Fifth choice</string>
+    <string name="end_time_string">End time</string>
 </resources>
