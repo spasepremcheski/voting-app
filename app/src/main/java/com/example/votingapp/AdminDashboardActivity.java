@@ -45,21 +45,25 @@ public class AdminDashboardActivity extends AppCompatActivity {
         binding.addNewVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog dialog = new BottomSheetDialog(getApplicationContext());
-                DialogAddVoteBinding bottomSheetBinding = DialogAddVoteBinding.inflate((getLayoutInflater()));
-                dialog.setContentView(bottomSheetBinding.getRoot());
-
-                bottomSheetBinding.startVoteButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // TODO: start the vote (save it to database, send notification)
-
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
+                addNewVoteDialog();
             }
         });
+    }
+
+    private void addNewVoteDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        DialogAddVoteBinding bottomSheetBinding = DialogAddVoteBinding.inflate((getLayoutInflater()));
+        dialog.setContentView(bottomSheetBinding.getRoot());
+
+        bottomSheetBinding.startVoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: start the vote (save it to database, send notification)
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
