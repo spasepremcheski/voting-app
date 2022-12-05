@@ -13,27 +13,28 @@ import kotlin.jvm.Volatile;
         VoteEntity.class,
         UserVoteEntity.class
     },
-    version = 1
+    version = 2
 )
 public abstract class VotesDatabase extends RoomDatabase {
 
     @Volatile
-    private VotesDatabase INSTANCE = null;
+    private static VotesDatabase INSTANCE;
 
-    public VotesDatabase getDatabase(Context context) {
+    public static VotesDatabase getDatabase(Context context) {
         if (INSTANCE == null){
-            synchronized (this) {
-                INSTANCE = Room.databaseBuilder(context, VotesDatabase.class, "votes_db")
+            synchronized (VotesDatabase.class) {
+                VotesDatabase database = Room.databaseBuilder(context, VotesDatabase.class, "votes_db")
                     .fallbackToDestructiveMigration()
                     .build();
+                INSTANCE = database;
             }
         }
         return INSTANCE;
     }
 
-    abstract UserDao usersDao();
+    public abstract UserDao usersDao();
 
-    abstract VoteDao votesDao();
+    public abstract VoteDao votesDao();
 
-    abstract UserVoteDao userVoteDao();
+    public abstract UserVoteDao userVoteDao();
 }
