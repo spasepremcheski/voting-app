@@ -58,7 +58,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         bottomSheetBinding.startVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: start the vote (save it to database, send notification)
+                // TODO: start the vote (check empty fields, save it to database, send notification)
 
                 dialog.dismiss();
             }
