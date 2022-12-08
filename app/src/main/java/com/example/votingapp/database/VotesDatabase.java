@@ -17,17 +17,13 @@ import kotlin.jvm.Volatile;
 )
 public abstract class VotesDatabase extends RoomDatabase {
 
-    @Volatile
     private static VotesDatabase INSTANCE;
 
-    public static VotesDatabase getDatabase(Context context) {
+    public static synchronized VotesDatabase getDatabase(Context context) {
         if (INSTANCE == null){
-            synchronized (VotesDatabase.class) {
-                VotesDatabase database = Room.databaseBuilder(context, VotesDatabase.class, "votes_db")
-                    .fallbackToDestructiveMigration()
-                    .build();
-                INSTANCE = database;
-            }
+            INSTANCE = Room.databaseBuilder(context, VotesDatabase.class, "votes_db")
+                .fallbackToDestructiveMigration()
+                .build();
         }
         return INSTANCE;
     }
