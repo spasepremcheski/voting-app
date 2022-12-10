@@ -2,6 +2,7 @@ package com.example.votingapp.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "votes")
@@ -11,23 +12,28 @@ public class VoteEntity {
     int id;
 
     @ColumnInfo(name = "question")
-    String question;
+    public String question;
 
     @ColumnInfo(name = "choice_one")
-    String choiceOne;
+    public String choiceOne;
     @ColumnInfo(name = "choice_two")
-    String choiceTwo;
+    public String choiceTwo;
     @ColumnInfo(name = "choice_three")
-    String choiceThree;
+    public String choiceThree;
     @ColumnInfo(name = "choice_four")
-    String choiceFour;
+    public String choiceFour;
     @ColumnInfo(name = "choice_five")
-    String choiceFive;
+    public String choiceFive;
 
     @ColumnInfo(name = "start_time")
-    String startTime;
+    public String startTime;
 
     @ColumnInfo(name = "end_time")
-    String endTime;
+    public String endTime;
+
+    @Ignore
+    public String getQuestion() {
+        return question;
+    }
 }
 
