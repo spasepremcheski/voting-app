@@ -15,6 +15,6 @@
     <string name="third_choice_string">Third choice</string>
     <string name="fourth_choice_string">Fourth choice</string>
     <string name="fifth_choice_string">Fifth choice</string>
-    <string name="end_time_string">End time</string>
+    <string name="end_time_string">End time in minutes</string>
     <string name="refresh_votes_string">Refresh votes</string>
 </resources>
