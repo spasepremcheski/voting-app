@@ -13,7 +13,8 @@ import kotlin.jvm.Volatile;
         VoteEntity.class,
         UserVoteEntity.class
     },
-    version = 2
+    version = 8,
+    exportSchema = false
 )
 public abstract class VotesDatabase extends RoomDatabase {
 

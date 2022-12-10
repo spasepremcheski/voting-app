@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/userVotesFragment">
+
+    <fragment
+        android:id="@+id/userVotesFragment"
+        android:name="com.example.votingapp.UserVotesFragment"
+        tools:layout="@layout/fragment_user_votes">
+        <action
+            android:id="@+id/toUserResultsFragment"
+            app:destination="@id/userResultsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/userResultsFragment"
+        android:name="com.example.votingapp.UserResultsFragment"
+        tools:layout="@layout/fragment_user_results"/>
+
+</navigation>
