@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,6 +12,7 @@ import com.example.votingapp.database.UserEntity;
 import com.example.votingapp.database.VotesDatabase;
 import com.example.votingapp.databinding.ActivityLoginBinding;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
@@ -54,11 +56,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 // TODO: check user if registered in database then navigate to user dashboard
-                final UserEntity[] user = new UserEntity[1];
-                Executors.newSingleThreadExecutor().execute(() -> user[0] = database.usersDao().getUser(username, password));
-                if(user[0] == null) {
-                    Toast.makeText(this, "Valid user", Toast.LENGTH_SHORT).show();
-                }
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    UserEntity user = database.usersDao().getUser(username, password);
+                    if(user != null){
+                        Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                        intent.putExtra("USER_ID", user.id);
+                        startActivity(intent);
+                    }
+                });
             }
 
         } else {
