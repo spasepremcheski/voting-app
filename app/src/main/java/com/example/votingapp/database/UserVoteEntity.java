@@ -8,23 +8,23 @@ import androidx.room.PrimaryKey;
 public class UserVoteEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    int id;
+    public int id;
 
     @ColumnInfo(name = "user_id")
-    int userId;
+    public int userId;
 
     @ColumnInfo(name = "vote_id")
-    int voteId;
+    public int voteId;
 
     @ColumnInfo(name = "choice")
-    String choice;
+    public String choice;
 
     @ColumnInfo(name = "time_voted")
-    String timeVoted;
+    public String timeVoted;
 
     @ColumnInfo(name = "latitude")
-    double latitude;
+    public double latitude;
 
     @ColumnInfo(name = "longitude")
-    double longitude;
+    public double longitude;
 }
