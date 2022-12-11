@@ -15,7 +15,7 @@
     <string name="third_choice_string">Third choice</string>
     <string name="fourth_choice_string">Fourth choice</string>
     <string name="fifth_choice_string">Fifth choice</string>
-    <string name="end_time_string">End time in minutes</string>
+    <string name="end_time_string">End time (format: "hh:mm")</string>
     <string name="refresh_votes_string">Refresh votes</string>
     <string name="choose_vote_string">Choose vote</string>
     <string name="vote_ends_in_string">Vote ends in:</string>
