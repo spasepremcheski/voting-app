@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class VoteEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    int id;
+    public int id;
 
     @ColumnInfo(name = "question")
     public String question;
