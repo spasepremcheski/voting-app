@@ -17,5 +17,5 @@ public interface VoteDao {
     LiveData<List<VoteEntity>> getAllVotes();
 
     @Query("SELECT * FROM votes WHERE id = :id")
-    VoteEntity getVote(int id);
+    LiveData<VoteEntity> getVote(int id);
 }

@@ -1,5 +1,6 @@
 package com.example.votingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -18,7 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class AdminDashboardActivity extends AppCompatActivity {
+public class AdminDashboardActivity extends AppCompatActivity implements OnAdapterItemClickListener {
 
     private ActivityAdminDashboardBinding binding;
 
@@ -49,7 +50,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 questions = votes.stream().map(VoteEntity::getQuestion).collect(Collectors.toList());
             }
 
-            adapter = new VotesAdapter(questions);
+            adapter = new VotesAdapter(questions, this);
             binding.votesRecyclerView.setLayoutManager(new LinearLayoutManager(AdminDashboardActivity.this));
             binding.votesRecyclerView.setAdapter(adapter);
         });
@@ -91,5 +92,13 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     private String getCurrentTime() {
         return String.valueOf(Calendar.getInstance().getTime()).substring(11,16);
+    }
+
+    @Override
+    public void onAdapterItemClickListener(int position) {
+        Log.d("Item clicked", votes.get(position).question + votes.get(position).id);
+        Intent intent = new Intent(this, AdminResultsActivity.class);
+        intent.putExtra("VOTE_ID", votes.get(position).id);
+        startActivity(intent);
     }
 }
