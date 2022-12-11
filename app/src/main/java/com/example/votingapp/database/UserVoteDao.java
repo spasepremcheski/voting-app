@@ -15,6 +15,9 @@ public interface UserVoteDao {
     @Query("SELECT * FROM user_vote")
     LiveData<List<UserVoteEntity>> getAllVotes();
 
+    @Query("SELECT * FROM user_vote WHERE vote_id = :voteId")
+    LiveData<List<UserVoteEntity>> getUserVotes(int voteId);
+
     @Query("SELECT * FROM user_vote WHERE user_id = :userId AND vote_id = :voteId")
     LiveData<UserVoteEntity> getUserVote(int userId, int voteId);
 }
