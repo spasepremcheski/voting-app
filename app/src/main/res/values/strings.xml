@@ -17,7 +17,8 @@
     <string name="fifth_choice_string">Fifth choice</string>
     <string name="end_time_string">End time in minutes</string>
     <string name="refresh_votes_string">Refresh votes</string>
-    <string name="choose_vote_string">Choose vote:</string>
+    <string name="choose_vote_string">Choose vote</string>
     <string name="vote_ends_in_string">Vote ends in:</string>
     <string name="submit_vote_string">Submit vote</string>
+    <string name="results_aren_t_available_string">Results aren\'t available</string>
 </resources>
