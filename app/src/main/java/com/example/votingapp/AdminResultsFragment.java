@@ -16,10 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class UserResultsFragment extends Fragment {
+public class AdminResultsFragment extends Fragment {
     private FragmentUserResultsBinding binding;
 
     private VoteEntity vote;
+    private int voteId;
 
     VotesDatabase database;
 
@@ -34,20 +35,22 @@ public class UserResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("NAVIGATION", "UserResultsFragment");
+        Log.d("NAVIGATION", "AdminResultsFragment");
 
-        database = ((UserActivity) getActivity()).database;
-        vote = ((UserActivity) getActivity()).vote;
+        database = ((AdminResultsActivity) getActivity()).database;
+        voteId = ((AdminResultsActivity) getActivity()).voteId;
 
-        if(vote != null) {
+        database.votesDao().getVote(voteId).observe(getViewLifecycleOwner(), voteEntity -> {
+            vote = voteEntity;
+            Log.d("Vote: ", String.valueOf(voteId));
             showResults();
-        }
+        });
     }
 
     @SuppressLint("SetTextI18n")
     private void showResults() {
         binding.questionTextView.setText(vote.question);
-        database.userVoteDao().getUserVotes(vote.id).observe(getViewLifecycleOwner(), userVoteEntities -> {
+        database.userVoteDao().getUserVotes(voteId).observe(getViewLifecycleOwner(), userVoteEntities -> {
             float one=0, two=0, three=0, four=0, five=0, numVotes;
             for(UserVoteEntity u: userVoteEntities) {
                 if(u.choice.equals(vote.choiceOne)) one+=1;

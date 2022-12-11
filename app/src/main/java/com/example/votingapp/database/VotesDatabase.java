@@ -34,4 +34,6 @@ public abstract class VotesDatabase extends RoomDatabase {
     public abstract VoteDao votesDao();
 
     public abstract UserVoteDao userVoteDao();
+
+    public abstract MyDao myDao();
 }

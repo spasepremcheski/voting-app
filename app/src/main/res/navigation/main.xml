@@ -18,4 +18,9 @@
         android:name="com.example.votingapp.UserResultsFragment"
         tools:layout="@layout/fragment_user_results"/>
 
+    <fragment
+        android:id="@+id/userNoResultsFragment"
+        android:name="com.example.votingapp.UserNoResultsFragment"
+        tools:layout="@layout/fragment_user_noresults"/>
+
 </navigation>

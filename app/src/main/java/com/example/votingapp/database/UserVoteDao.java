@@ -2,6 +2,7 @@ package com.example.votingapp.database;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
@@ -12,5 +13,11 @@ public interface UserVoteDao {
     void addUserVote(int userId, int voteId, String choice, String timeVoted, double latitude, double longitude);
 
     @Query("SELECT * FROM user_vote")
-    List<UserVoteEntity> getAllVotes();
+    LiveData<List<UserVoteEntity>> getAllVotes();
+
+    @Query("SELECT * FROM user_vote WHERE vote_id = :voteId")
+    LiveData<List<UserVoteEntity>> getUserVotes(int voteId);
+
+    @Query("SELECT * FROM user_vote WHERE user_id = :userId AND vote_id = :voteId")
+    LiveData<UserVoteEntity> getUserVote(int userId, int voteId);
 }
