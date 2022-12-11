@@ -2,16 +2,13 @@ package com.example.votingapp;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import com.example.votingapp.database.UserEntity;
 import com.example.votingapp.database.VoteEntity;
 import com.example.votingapp.database.VotesDatabase;
 import com.example.votingapp.databinding.ActivityAdminDashboardBinding;
 import com.example.votingapp.databinding.DialogAddVoteBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -19,7 +16,6 @@ import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class AdminDashboardActivity extends AppCompatActivity {
@@ -41,19 +37,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         addNewVote();
         initRecyclerView();
-//        refreshVotes();
     }
 
     private void initRecyclerView() {
-        //        List<String> questions = null;
-        //        Executors.newSingleThreadExecutor().execute(() -> {
-        //            List<VoteEntity> votes = database.votesDao().getAllVotes();
-        //            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        //                List<String> q = votes.stream().map(VoteEntity::getQuestion).collect(Collectors.toList());
-        //                questions.addAll(q);
-        //            }
-        //        });
-
         // fetch votes from database and add them to the recycler view
         database.votesDao().getAllVotes().observe(this, voteEntities -> {
             votes = voteEntities;
@@ -70,17 +56,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     }
 
-    private void refreshVotes() {
-        // TODO: refetch votes from database and add them to the recycler view
-    }
-
     private void addNewVote() {
-        binding.addNewVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewVoteDialog();
-            }
-        });
+        binding.addNewVoteButton.setOnClickListener(view -> addNewVoteDialog());
     }
 
     private void addNewVoteDialog() {
@@ -89,7 +66,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         dialog.setContentView(bottomSheetBinding.getRoot());
 
         bottomSheetBinding.startVoteButton.setOnClickListener(view -> {
-            // TODO: start the vote (check empty fields, save it to database, send notification)
+            // start the vote (check empty fields, save it to database, send notification)
             String question = bottomSheetBinding.voteQuestionEditText.getText().toString();
             String choiceOne = bottomSheetBinding.choiceOneEditText.getText().toString();
             String choiceTwo = bottomSheetBinding.choiceTwoEditText.getText().toString();
