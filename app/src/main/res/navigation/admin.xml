@@ -8,6 +8,16 @@
     <fragment
         android:id="@+id/userResultsFragment"
         android:name="com.example.votingapp.AdminResultsFragment"
-        tools:layout="@layout/fragment_user_results"/>
+        tools:layout="@layout/fragment_user_results">
+
+        <action
+            android:id="@+id/toAdminMapsFragment"
+            app:destination="@id/adminMapsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/adminMapsFragment"
+        android:name="com.example.votingapp.AdminResultsMapsFragment"
+        tools:layout="@layout/fragment_admin_results_maps"/>
 
 </navigation>

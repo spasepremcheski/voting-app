@@ -96,7 +96,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements OnAdapt
 
     @Override
     public void onAdapterItemClickListener(int position) {
-        Log.d("Item clicked", votes.get(position).question + votes.get(position).id);
+//        Log.d("Item clicked", votes.get(position).question + votes.get(position).id);
         Intent intent = new Intent(this, AdminResultsActivity.class);
         intent.putExtra("VOTE_ID", votes.get(position).id);
         startActivity(intent);

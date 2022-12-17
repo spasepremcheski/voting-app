@@ -10,14 +10,15 @@ import android.view.ViewGroup;
 import com.example.votingapp.database.UserVoteEntity;
 import com.example.votingapp.database.VoteEntity;
 import com.example.votingapp.database.VotesDatabase;
-import com.example.votingapp.databinding.FragmentUserResultsBinding;
+import com.example.votingapp.databinding.FragmentAdminResultsBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class AdminResultsFragment extends Fragment {
-    private FragmentUserResultsBinding binding;
+    private FragmentAdminResultsBinding binding;
 
     private VoteEntity vote;
     private int voteId;
@@ -27,7 +28,7 @@ public class AdminResultsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentUserResultsBinding.inflate(inflater, container, false);
+        binding = FragmentAdminResultsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -35,14 +36,14 @@ public class AdminResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("NAVIGATION", "AdminResultsFragment");
+//        Log.d("NAVIGATION", "AdminResultsFragment");
 
         database = ((AdminResultsActivity) getActivity()).database;
         voteId = ((AdminResultsActivity) getActivity()).voteId;
 
         database.votesDao().getVote(voteId).observe(getViewLifecycleOwner(), voteEntity -> {
             vote = voteEntity;
-            Log.d("Vote: ", String.valueOf(voteId));
+//            Log.d("Vote: ", String.valueOf(voteId));
             showResults();
         });
     }
@@ -65,6 +66,14 @@ public class AdminResultsFragment extends Fragment {
             binding.choiceThreeTextView.setText(vote.choiceThree + ": " + (three==0 ? 0 : three*100/numVotes) + " %");
             binding.choiceFourTextView.setText(vote.choiceFour + ": " + (four==0 ? 0 : four*100/numVotes) + " %");
             binding.choiceFiveTextView.setText(vote.choiceFive + ": " + (five==0 ? 0 : five*100/numVotes) + " %");
+        });
+
+        initMapsButton();
+    }
+
+    private void initMapsButton() {
+        binding.mapsButton.setOnClickListener(view -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.toAdminMapsFragment);
         });
     }
 }
