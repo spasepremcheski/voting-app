@@ -22,4 +22,6 @@
     <string name="submit_vote_string">Submit vote</string>
     <string name="results_aren_t_available_string">Results aren\'t available</string>
     <string name="show_on_map_string">Show on map</string>
+    <string name="vote_channel">Vote</string>
+    <string name="vote_channel_description">Vote Description</string>
 </resources>
