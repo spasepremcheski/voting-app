@@ -34,7 +34,7 @@ public class UserResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("NAVIGATION", "UserResultsFragment");
+//        Log.d("NAVIGATION", "UserResultsFragment");
 
         database = ((UserActivity) getActivity()).database;
         vote = ((UserActivity) getActivity()).vote;

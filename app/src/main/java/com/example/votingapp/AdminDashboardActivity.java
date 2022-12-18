@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class AdminDashboardActivity extends AppCompatActivity implements OnAdapterItemClickListener {
@@ -85,6 +87,16 @@ public class AdminDashboardActivity extends AppCompatActivity implements OnAdapt
             }
 
             dialog.dismiss();
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Vote now")
+                .setContentText(question)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(1, builder.build());
         });
 
         dialog.show();
@@ -96,7 +108,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements OnAdapt
 
     @Override
     public void onAdapterItemClickListener(int position) {
-        Log.d("Item clicked", votes.get(position).question + votes.get(position).id);
+//        Log.d("Item clicked", votes.get(position).question + votes.get(position).id);
         Intent intent = new Intent(this, AdminResultsActivity.class);
         intent.putExtra("VOTE_ID", votes.get(position).id);
         startActivity(intent);
