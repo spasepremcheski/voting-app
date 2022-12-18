@@ -1,5 +1,6 @@
 package com.example.votingapp;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,13 +17,20 @@ import java.util.stream.Collectors;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity implements OnAdapterItemClickListener {
 
     private ActivityUserBinding binding;
 
     VotesDatabase database;
+
+    private VotesAdapter adapter;
+
+    private MutableLiveData<List<String>> questions = new MutableLiveData<List<String>>();
 
     int userId;
     VoteEntity vote;
@@ -44,7 +52,35 @@ public class UserActivity extends AppCompatActivity {
         //            database.myDao().deleteVotes();
         //        });
 
-        initSpinner();
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            initSpinner();
+        } else {
+            initSpinnerFragment();
+        }
+    }
+
+    private void initSpinnerFragment() {
+        database.votesDao().getAllVotes().observe(this, voteEntities -> {
+            votes = voteEntities;
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N && votes != null) {
+                questions.setValue(votes.stream().map(VoteEntity::getQuestion).collect(Collectors.toList()));
+            }
+        });
+
+        questions.observe(this , questionsList -> {
+            adapter = new VotesAdapter(questionsList, this);
+
+            RecyclerView votesRecyclerView = findViewById(R.id.chooseVotesRecyclerView);
+
+            votesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            votesRecyclerView.setAdapter(adapter);
+        });
+    }
+
+    @Override
+    public void onAdapterItemClickListener(int position) {
+        setVote(votes.get(position));
     }
 
     private void initSpinner() {
@@ -64,8 +100,7 @@ public class UserActivity extends AppCompatActivity {
             binding.voteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    vote = votes.get(i);
-                    checkSelectedVote(vote.id);
+                    setVote(votes.get(i));
                 }
 
                 @Override
@@ -75,32 +110,38 @@ public class UserActivity extends AppCompatActivity {
         });
     }
 
-    private void checkSelectedVote(int voteId) {
+    void setVote(VoteEntity v) {
+        vote = v;
+        checkSelectedVote(vote.id);
+    }
+
+    void checkSelectedVote(int voteId) {
         database.userVoteDao().getUserVote(userId, voteId).observe(this, userVoteEntity -> {
-            if (userVoteEntity != null) {
-                if (checkVoteEnded(vote.endTime)) {
-                    Log.d("check vote", "Vote is ended");
-                    // Show results
-                    Navigation.findNavController(binding.navHostFragment).popBackStack();
-                    Navigation.findNavController(binding.navHostFragment).navigate(R.id.userResultsFragment);
+                if (userVoteEntity != null) {
+                    if (checkVoteEnded(vote.endTime)) {
+                        Log.d("check vote", "Vote is ended");
+                        // Show results
+                        Navigation.findNavController(binding.navHostFragment).popBackStack();
+                        Navigation.findNavController(binding.navHostFragment).navigate(R.id.userResultsFragment);
+                    } else {
+                        // Show empty state
+                        Log.d("check vote", "Already voted");
+                        Navigation.findNavController(binding.navHostFragment).popBackStack();
+                        Navigation.findNavController(binding.navHostFragment).navigate(R.id.userNoResultsFragment);
+                    }
                 } else {
-                    // Show empty state
-                    Log.d("check vote", "Already voted");
-                    Navigation.findNavController(binding.navHostFragment).popBackStack();
-                    Navigation.findNavController(binding.navHostFragment).navigate(R.id.userNoResultsFragment);
+                    if (checkVoteEnded(vote.endTime)) {
+                        // Show empty state
+                        Log.d("check vote", "Vote is ended, you haven't voted" + vote.endTime);
+                        Navigation.findNavController(binding.navHostFragment).popBackStack();
+                        Navigation.findNavController(binding.navHostFragment).navigate(R.id.userResultsFragment);
+                    } else {
+                        // Show vote
+                        Log.d("check vote", "PLEASE VOTE" + vote.endTime);
+                        Navigation.findNavController(binding.navHostFragment).popBackStack();
+                        Navigation.findNavController(binding.navHostFragment).navigate(R.id.userVotesFragment);
+                    }
                 }
-            } else {
-                if (checkVoteEnded(vote.endTime)) {
-                    // Show empty state
-                    Log.d("check vote", "Vote is ended, you haven't voted" + vote.endTime);
-                    Navigation.findNavController(binding.navHostFragment).popBackStack();
-                    Navigation.findNavController(binding.navHostFragment).navigate(R.id.userResultsFragment);
-                } else {
-                    // Show vote
-                    Navigation.findNavController(binding.navHostFragment).popBackStack();
-                    Navigation.findNavController(binding.navHostFragment).navigate(R.id.userVotesFragment);
-                }
-            }
         });
     }
 

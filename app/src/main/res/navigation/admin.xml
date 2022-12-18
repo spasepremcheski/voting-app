@@ -6,7 +6,7 @@
     app:startDestination="@id/userResultsFragment">
 
     <fragment
-        android:id="@+id/userResultsFragment"
+        android:id="@+id/adminResultsFragment"
         android:name="com.example.votingapp.AdminResultsFragment"
         tools:layout="@layout/fragment_user_results">
 
